@@ -1,0 +1,108 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль - GIN</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .order-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #87CEFA;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="/">GIN</a>
+        <div>
+            <span class="text-white me-3" id="userNameDisplay"></span>
+            <a href="/" class="btn btn-outline-light" onclick="localStorage.clear()">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <i class="fas fa-user-circle fa-4x mb-3" style="color: #87CEFA;"></i>
+                    <h4 id="userFullname"></h4>
+                    <p class="text-muted">Пользователь GIN</p>
+                    <hr>
+                    <a href="/" class="btn btn-primary w-100">Заказать такси</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h5>История моих заказов</h5>
+                </div>
+                <div class="card-body" id="ordersHistory">
+                    <div class="alert alert-info">Загрузка...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const userId = localStorage.getItem('userId');
+    const userName = localStorage.getItem('userName');
+    
+    if (!userId) window.location.href = '/login-user';
+    
+    document.getElementById('userFullname').innerText = userName;
+    document.getElementById('userNameDisplay').innerHTML = userName;
+    
+    async function loadOrders() {
+        const response = await fetch('/user-orders/' + userId);
+        const orders = await response.json();
+        const container = document.getElementById('ordersHistory');
+        
+        if (orders.length === 0) {
+            container.innerHTML = '<div class="alert alert-info">У вас пока нет заказов</div>';
+            return;
+        }
+        
+        let html = '';
+        orders.forEach(order => {
+            html += `
+                <div class="order-card">
+                    <div class="row">
+                        <div class="col-5">
+                            <small class="text-muted">${order.date}</small>
+                            <div>${order.pickup}</div>
+                            <div>${order.dropoff}</div>
+                        </div>
+                        <div class="col-3">
+                            <span class="badge bg-info">${order.tariff}</span>
+                            <div class="mt-1">${order.price} ₽</div>
+                        </div>
+                        <div class="col-4">
+                            <span class="badge bg-${order.status === 'Новый' ? 'warning' : 'success'}">${order.status}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+    
+    loadOrders();
+</script>
+
+</body>
+</html>
+```
