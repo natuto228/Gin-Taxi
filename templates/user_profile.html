@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль - Gin Taxi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Gin Taxi</a>
+        <div>
+            <span class="text-white me-3" id="userNameDisplay"></span>
+            <a href="/" class="btn btn-outline-light" id="logoutUserBtn">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-circle fa-4x mb-3" style="color: #87CEFA;"></i>
+                    <h4 id="userFullname"></h4>
+                    <p class="text-muted">Пользователь Gin Taxi</p>
+                    <hr>
+                    <a href="/" class="btn btn-primary w-100">Заказать такси</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>История моих заказов</h5>
+                </div>
+                <div class="card-body" id="ordersHistory">
+                    <div class="alert alert-info">Загрузка...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>

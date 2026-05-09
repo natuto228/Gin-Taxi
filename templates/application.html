@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета - Gin Taxi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="login-body">
+
+<div class="login-card">
+    <div class="text-center">
+        <div class="logo-circle">A</div>
+        <h3>Анкета для связи</h3>
+        <p>Заполните форму и мы свяжемся с вами</p>
+    </div>
+    
+    <form id="applicationForm">
+        <div class="mb-3">
+            <label class="form-label">ФИО</label>
+            <input type="text" class="form-control" id="appFullname" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Телефон</label>
+            <input type="tel" class="form-control" id="appPhone" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="appEmail" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Роль</label>
+            <select class="form-select" id="appRole">
+                <option value="driver">Водитель такси</option>
+                <option value="passenger">Пассажир</option>
+            </select>
+        </div>
+        <button type="submit" class="btn-login w-100">Отправить</button>
+    </form>
+    
+    <div class="text-center mt-3">
+        <a href="/login">Вернуться ко входу</a>
+    </div>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>

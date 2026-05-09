@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gin Taxi - Заказ такси</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="page-container">
+    <header class="header">
+        <div class="logo">Gin Taxi</div>
+        <div>
+            <i class="fas fa-user-circle"></i>
+            <span id="userStatus">
+                <span id="userNameHeader">Гость</span>
+            </span>
+        </div>
+    </header>
+    
+    <div class="main-content">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <h4>Gin Taxi</h4>
+                <p>Ваше надежное такси</p>
+            </div>
+            
+            <!-- Панель заказа такси -->
+            <div class="order-panel">
+                <h4>ЗАКАЗ ТАКСИ</h4>
+                
+                <!-- Если пользователь не авторизован - показываем поля для гостя -->
+                <div id="guestFields" style="display: none;">
+                    <input type="text" id="guestName" class="location-input" placeholder="Ваше имя">
+                    <input type="tel" id="guestPhone" class="location-input" placeholder="Ваш телефон">
+                    <input type="email" id="guestEmail" class="location-input" placeholder="Ваш email">
+                </div>
+                
+                <input type="text" id="pickupAddress" class="location-input" placeholder="Откуда едем?">
+                <button class="btn btn-sm btn-outline-secondary w-100 mb-2" id="myLocationBtn">Моё местоположение</button>
+                <input type="text" id="dropoffAddress" class="location-input" placeholder="Куда едем?">
+                <select id="tariffSelect" class="location-input">
+                    <option value="econom">Эконом - 25 ₽/км</option>
+                    <option value="comfort">Комфорт - 35 ₽/км</option>
+                    <option value="business">Бизнес - 50 ₽/км</option>
+                </select>
+                <button class="order-btn" id="orderBtn">ЗАКАЗАТЬ ТАКСИ</button>
+            </div>
+            
+            <div class="action-card" id="phoneOrderBtn">
+                <i class="fas fa-phone-alt"></i>
+                <h3>ЗАКАЗ ПО ТЕЛЕФОНУ</h3>
+                <p>+7 (812) 123-45-67</p>
+            </div>
+            
+            <div class="action-card" id="commentBtn">
+                <i class="fas fa-comment-dots"></i>
+                <h3>КОММЕНТАРИЙ ВОДИТЕЛЮ</h3>
+                <p>Добавить пожелания</p>
+            </div>
+            
+            <button class="driver-login-btn" id="driverLoginBtn">ВОЙТИ В ПРОФИЛЬ ВОДИТЕЛЯ</button>
+        </aside>
+        
+        <div class="map-container">
+            <div class="search-overlay">
+                <input type="text" id="addressSearch" placeholder="Поиск адреса...">
+                <button id="searchBtn">Найти</button>
+            </div>
+            <div id="map"></div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>2026 Gin Taxi | <a href="/login-user" id="loginUserLink" style="color:white;">Войти</a> | <a href="/register" id="registerLink" style="color:white;">Регистрация</a></p>
+    </footer>
+</div>
+
+<div id="commentModal" class="modal-custom">
+    <div class="modal-content">
+        <h3>Комментарий водителю</h3>
+        <textarea id="driverComment" class="form-control mt-3" rows="4" placeholder="Ваши пожелания..."></textarea>
+        <button class="btn btn-primary w-100 mt-3" id="sendCommentBtn">Отправить</button>
+        <button class="btn btn-secondary w-100 mt-2" id="closeCommentBtn">Отмена</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/static/script.js"></script>
+
+<script>
+    const userId = localStorage.getItem('userId');
+    const userName = localStorage.getItem('userName');
+    const guestFields = document.getElementById('guestFields');
+    
+    if (userId) {
+        document.getElementById('userNameHeader').innerHTML = userName + ' | <a href="/user-profile" style="color:white;">Профиль</a> | <a href="/" onclick="localStorage.clear()" style="color:white;">Выйти</a>';
+        if (guestFields) guestFields.style.display = 'none';
+    } else {
+        document.getElementById('userNameHeader').innerHTML = '<a href="/login-user" style="color:white;">Войти</a>';
+        if (guestFields) guestFields.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

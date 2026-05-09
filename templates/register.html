@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Gin Taxi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="login-body">
+
+<a href="/" class="header-back">На главную</a>
+
+<div class="login-card">
+    <div class="text-center">
+        <div class="logo-circle">R</div>
+        <h3>Регистрация</h3>
+        <p>Создайте аккаунт Gin Taxi</p>
+    </div>
+    
+    <form id="registerForm">
+        <div class="mb-3">
+            <label class="form-label">ФИО</label>
+            <input type="text" class="form-control" id="fullname" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Телефон</label>
+            <input type="tel" class="form-control" id="phone" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="password" required>
+        </div>
+        <button type="submit" class="btn-login w-100">Зарегистрироваться</button>
+    </form>
+    
+    <div class="text-center mt-3">
+        <a href="/login-user">Уже есть аккаунт? Войти</a>
+    </div>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
