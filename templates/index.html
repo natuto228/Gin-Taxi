@@ -17,7 +17,7 @@
         <div class="user-status">
             <i class="fas fa-user-circle"></i>
             <span id="userNameHeader">
-                <a href="/login-user" style="color:#666;">Войти</a>
+                <a href="/login-user">Войти</a>
             </span>
         </div>
     </header>
@@ -26,37 +26,43 @@
         
         <aside class="sidebar">
             
-            <div class="logo-block">
-                <h1>GIN</h1>
+            <!-- КАРТОЧКА 1: ЛОГОТИП -->
+            <div class="logo-image-card" onclick="window.location.href='/'">
+                <img src="https://i.imgur.com/placeholder.jpg" alt="GIN Logo">
+                <p>GIN TAXI</p>
             </div>
             
-            <!-- КНОПКА 1: ЗАКАЗ ПО ТЕЛЕФОНУ -->
+            <!-- КАРТОЧКА 2: ЗАКАЗ ПО ТЕЛЕФОНУ -->
             <div class="action-card" onclick="makePhoneCall()">
                 <h3>заказ по телефону</h3>
-                <p> +7 (812) 123-45-67</p>
+                <p>+7 (812) 123-45-67</p>
             </div>
             
-            <!-- КНОПКА 2: ВЫБРАТЬ ТАРИФ (ОТКРЫВАЕТ ФОРМУ) -->
+            <!-- КАРТОЧКА 3: ВЫБРАТЬ ТАРИФ -->
             <div class="action-card" onclick="openOrderForm()">
                 <h3>выбрать тариф</h3>
-                <p> заказать такси</p>
+                <p>заказать такси</p>
             </div>
             
-            <!-- КНОПКА 3: КОММЕНТАРИЙ ВОДИТЕЛЮ -->
+            <!-- КАРТОЧКА 4: КОММЕНТАРИЙ ВОДИТЕЛЮ -->
             <div class="action-card" onclick="openCommentModal()">
                 <h3>комментарий водителю</h3>
-                <p> добавить пожелания</p>
+                <p>добавить пожелания</p>
             </div>
             
-            <div class="driver-login-block" onclick="window.location.href='/login'">
+            <!-- КАРТОЧКА 5: ВОЙТИ В ПРОФИЛЬ -->
+            <div class="action-card" onclick="window.location.href='/login'">
                 <h3>войти в профиль</h3>
                 <p>работа в такси</p>
             </div>
             
         </aside>
         
-        <!-- ПРАВАЯ КОЛОНКА - КАРТА -->
         <div class="map-container">
+            <div class="search-overlay">
+                <input type="text" id="addressSearch" placeholder="Поиск адреса...">
+                <button onclick="searchAddress()">Найти</button>
+            </div>
             <div id="map"></div>
         </div>
     </div>
@@ -66,31 +72,20 @@
     </footer>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ФОРМЫ ЗАКАЗА (ВЫЗОВ ТАКСИ) -->
+<!-- МОДАЛЬНОЕ ОКНО ФОРМЫ ЗАКАЗА -->
 <div id="orderModal" class="modal-custom">
-    <div class="modal-content" style="width: 450px;">
-        <h3> ЗАКАЗ ТАКСИ</h3>
+    <div class="modal-content">
+        <h3>ЗАКАЗ ТАКСИ</h3>
         <hr>
-        
-        <label class="form-label">ФИО</label>
-        <input type="text" id="orderName" class="form-control mb-2" placeholder="Введите ваше имя">
-        
-        <label class="form-label">Телефон</label>
-        <input type="tel" id="orderPhone" class="form-control mb-2" placeholder="+7 XXX XXX-XX-XX">
-        
-        <label class="form-label">Адрес подачи</label>
-        <input type="text" id="orderPickup" class="form-control mb-2" placeholder="Откуда едем?">
-        
-        <label class="form-label">Адрес назначения</label>
-        <input type="text" id="orderDropoff" class="form-control mb-2" placeholder="Куда едем?">
-        
-        <label class="form-label">Тариф</label>
+        <input type="text" id="orderName" class="form-control mb-2" placeholder="ФИО">
+        <input type="tel" id="orderPhone" class="form-control mb-2" placeholder="Телефон">
+        <input type="text" id="orderPickup" class="form-control mb-2" placeholder="Адрес подачи">
+        <input type="text" id="orderDropoff" class="form-control mb-2" placeholder="Адрес назначения">
         <select id="orderTariff" class="form-control mb-3">
-            <option value="Эконом (25 ₽/км)"> Эконом — 25 ₽/км</option>
-            <option value="Комфорт (35 ₽/км)"> Комфорт — 35 ₽/км</option>
-            <option value="Бизнес (50 ₽/км)"> Бизнес — 50 ₽/км</option>
+            <option value="Эконом (25 руб/км)">Эконом - 25 руб/км</option>
+            <option value="Комфорт (35 руб/км)">Комфорт - 35 руб/км</option>
+            <option value="Бизнес (50 руб/км)">Бизнес - 50 руб/км</option>
         </select>
-        
         <button class="btn btn-primary w-100" onclick="submitOrder()">ЗАКАЗАТЬ ТАКСИ</button>
         <button class="btn btn-secondary w-100 mt-2" onclick="closeOrderModal()">Отмена</button>
     </div>
@@ -99,7 +94,7 @@
 <!-- МОДАЛЬНОЕ ОКНО КОММЕНТАРИЯ -->
 <div id="commentModal" class="modal-custom">
     <div class="modal-content">
-        <h3> Комментарий водителю</h3>
+        <h3>Комментарий водителю</h3>
         <textarea id="driverComment" class="form-control mt-3" rows="4" placeholder="Ваши пожелания..."></textarea>
         <button class="btn btn-primary w-100 mt-3" onclick="sendComment()">Отправить</button>
         <button class="btn btn-secondary w-100 mt-2" onclick="closeCommentModal()">Отмена</button>
