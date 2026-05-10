@@ -40,6 +40,43 @@
     </div>
 </div>
 
-<script src="/static/script.js"></script>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const fullname = document.getElementById('fullname').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        const formData = new FormData();
+        formData.append('fullname', fullname);
+        formData.append('phone', phone);
+        formData.append('email', email);
+        formData.append('password', password);
+        
+        try {
+            const response = await fetch('/register', {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (response.redirected) {
+                alert('Регистрация успешна! Теперь войдите в аккаунт.');
+                window.location.href = '/login-user';
+            } else {
+                const result = await response.json();
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    alert('Ошибка регистрации. Попробуйте ещё раз.');
+                }
+            }
+        } catch (error) {
+            alert('Ошибка соединения. Попробуйте ещё раз.');
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -34,6 +34,40 @@
     </div>
 </div>
 
-<script src="/static/script.js"></script>
+<script>
+    document.getElementById('loginUserForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('password', password);
+        
+        try {
+            const response = await fetch('/login-user', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                localStorage.setItem('userId', result.user_id);
+                localStorage.setItem('userName', result.fullname);
+                localStorage.setItem('userPhone', result.phone);
+                localStorage.setItem('userEmail', result.email);
+                alert('Добро пожаловать, ' + result.fullname + '!');
+                window.location.href = '/user-profile';
+            } else {
+                alert(result.error || 'Неверный email или пароль');
+            }
+        } catch (error) {
+            alert('Ошибка соединения. Попробуйте ещё раз.');
+        }
+    });
+</script>
+
 </body>
 </html>
