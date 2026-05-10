@@ -138,5 +138,5 @@ function sendComment() {
 const userId = localStorage.getItem('userId');
 const userName = localStorage.getItem('userName');
 if (userId && userName) {
-    document.getElementById('userNameHeader').innerHTML = userName + ' | <a href="/user-profile">Профиль</a> | <a href="/" onclick="localStorage.clear()">Выйти</a>';
+    document.getElementById('userNameHeader').innerHTML = userName + ' | <a href="/user-profile">ПРОФИЛЬ</a> | <a href="/" onclick="localStorage.clear()">ВЫЙТИ</a>';
 }
