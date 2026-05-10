@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -57,52 +56,6 @@
     </div>
 </div>
 
-<script>
-    const userId = localStorage.getItem('userId');
-    const userName = localStorage.getItem('userName');
-    
-    if (!userId) window.location.href = '/login-user';
-    
-    document.getElementById('userFullname').innerText = userName;
-    document.getElementById('userNameDisplay').innerHTML = userName;
-    
-    async function loadOrders() {
-        const response = await fetch('/user-orders/' + userId);
-        const orders = await response.json();
-        const container = document.getElementById('ordersHistory');
-        
-        if (orders.length === 0) {
-            container.innerHTML = '<div class="alert alert-info">У вас пока нет заказов</div>';
-            return;
-        }
-        
-        let html = '';
-        orders.forEach(order => {
-            html += `
-                <div class="order-card">
-                    <div class="row">
-                        <div class="col-5">
-                            <small class="text-muted">${order.date}</small>
-                            <div>${order.pickup}</div>
-                            <div>${order.dropoff}</div>
-                        </div>
-                        <div class="col-3">
-                            <span class="badge bg-info">${order.tariff}</span>
-                            <div class="mt-1">${order.price} ₽</div>
-                        </div>
-                        <div class="col-4">
-                            <span class="badge bg-${order.status === 'Новый' ? 'warning' : 'success'}">${order.status}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-        container.innerHTML = html;
-    }
-    
-    loadOrders();
-</script>
-
+<script src="/static/script.js"></script>
 </body>
 </html>
-```
