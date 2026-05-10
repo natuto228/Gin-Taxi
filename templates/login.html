@@ -34,6 +34,21 @@
     </div>
 </div>
 
-<script src="/static/script.js"></script>
+<script>
+    document.getElementById('driverLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const login = document.getElementById('driverLogin').value;
+        const password = document.getElementById('driverPassword').value;
+        
+        if (login === 'driver' && password === '12345') {
+            localStorage.setItem('driverLoggedIn', 'true');
+            window.location.href = '/driver-dashboard';
+        } else {
+            alert('Неверный логин или пароль');
+        }
+    });
+</script>
+
 </body>
 </html>
