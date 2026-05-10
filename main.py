@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -54,6 +54,14 @@ def init_database():
         )
     ''')
     
+    # Создаём тестового пользователя, если его нет
+    cursor.execute('SELECT * FROM users WHERE email = ?', ('user@gin.ru',))
+    if not cursor.fetchone():
+        cursor.execute('''
+            INSERT INTO users (fullname, phone, email, password, created_at)
+            VALUES (?, ?, ?, ?, ?)
+        ''', ('Тестовый Пользователь', '+79991234567', 'user@gin.ru', '123456', datetime.now()))
+    
     conn.commit()
     conn.close()
 
@@ -80,9 +88,9 @@ async def register(
         cursor.execute('INSERT INTO users (fullname, phone, email, password, created_at) VALUES (?, ?, ?, ?, ?)',
                        (fullname, phone, email, password, datetime.now()))
         conn.commit()
-        return RedirectResponse(url="/login-user", status_code=303)
+        return {"success": True, "message": "Регистрация успешна"}
     except sqlite3.IntegrityError:
-        return {"error": "Email уже существует"}
+        return {"success": False, "error": "Email уже существует"}
     finally:
         conn.close()
 

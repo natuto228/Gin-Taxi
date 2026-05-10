@@ -32,39 +32,31 @@
     <div style="text-align: center; margin-top: 15px;">
         <a href="/register" style="color: #999; font-size: 11px;">Нет аккаунта? Зарегистрироваться</a>
     </div>
+    
+    <hr>
+    <div style="text-align: center;">
+        <p style="font-size: 11px; color: #999;">Тестовый аккаунт:</p>
+        <p style="font-size: 11px; color: #999;">Email: user@gin.ru | Пароль: 123456</p>
+    </div>
 </div>
 
 <script>
     document.getElementById('loginUserForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
         const formData = new FormData();
-        formData.append('email', email);
-        formData.append('password', password);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('password', document.getElementById('password').value);
         
-        try {
-            const response = await fetch('/login-user', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                localStorage.setItem('userId', result.user_id);
-                localStorage.setItem('userName', result.fullname);
-                localStorage.setItem('userPhone', result.phone);
-                localStorage.setItem('userEmail', result.email);
-                alert('Добро пожаловать, ' + result.fullname + '!');
-                window.location.href = '/user-profile';
-            } else {
-                alert(result.error || 'Неверный email или пароль');
-            }
-        } catch (error) {
-            alert('Ошибка соединения. Попробуйте ещё раз.');
+        const response = await fetch('/login-user', { method: 'POST', body: formData });
+        const result = await response.json();
+        
+        if (result.success) {
+            localStorage.setItem('userId', result.user_id);
+            localStorage.setItem('userName', result.fullname);
+            window.location.href = '/user-profile';
+        } else {
+            alert(result.error);
         }
     });
 </script>
