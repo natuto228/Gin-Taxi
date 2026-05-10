@@ -107,7 +107,7 @@ function submitOrder() {
     
     fetch('/save-order', { method: 'POST', body: formData });
     
-    alert('ЗАКАЗ ОФОРМЛЕН');
+    alert('Заказ оформлен');
     closeOrderModal();
     
     document.getElementById('orderName').value = '';
@@ -138,5 +138,5 @@ function sendComment() {
 const userId = localStorage.getItem('userId');
 const userName = localStorage.getItem('userName');
 if (userId && userName) {
-    document.getElementById('userNameHeader').innerHTML = userName + ' | <a href="/user-profile">ПРОФИЛЬ</a> | <a href="/" onclick="localStorage.clear()">ВЫЙТИ</a>';
+    document.getElementById('userNameHeader').innerHTML = userName + ' | <a href="/user-profile">Профиль</a> | <a href="/" onclick="localStorage.clear()">Выйти</a>';
 }
