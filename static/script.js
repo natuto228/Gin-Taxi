@@ -238,21 +238,22 @@ function submitOrder() {
     document.getElementById('orderDropoff').value = '';
 }
 
-// ===== ЛОГИКА ДЛЯ СТРАНИЦЫ ВХОДА ВОДИТЕЛЯ =====
+// ===== ЛОГИКА ДЛЯ СТРАНИЦЫ ВХОДА ВОДИТЕЛЯ (УПРОЩЁННАЯ) =====
 if (window.location.pathname === '/login') {
     const form = document.getElementById('driverLoginForm');
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // ВРЕМЕННО: любой логин и пароль подходят
             const login = document.getElementById('driverLogin').value;
             const password = document.getElementById('driverPassword').value;
             
-            if (login === 'driver' && password === '12345') {
+            if (login && password) {
                 localStorage.setItem('driverLoggedIn', 'true');
                 window.location.href = '/driver-dashboard';
             } else {
-                alert('Неверный логин или пароль');
+                alert('Введите логин и пароль (любые)');
             }
         });
     }
